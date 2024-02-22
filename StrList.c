@@ -14,33 +14,31 @@ struct _StrList
     size_t _size;
 };
 
-char* readWord(){
-    int bufferSize = 10;
-    char* word = (char*)malloc(bufferSize*sizeof(char));
+char* readWords(){
+    char* str = NULL;
+    size_t size = 0;
 
-    if(word == NULL){
-        printf("Memory allocation failed. \n");
-        exit(1);
+    getline(&str, &size, stdin);
+
+    if(strlen(str) > 0 && str[strlen(str)-1] == '\n'){
+        str[strlen(str) - 1] = '\0';
     }
 
-    int index = 0;
-    char c;
+    return str;
 
-    while((c = getchar()) != '\n'){
-        word[index++] = c;
-        if(index == bufferSize - 1){
-            bufferSize *= 2;
-            word = (char*)realloc(word,bufferSize*sizeof(char));
-            if(word == NULL){
-                printf("Memory allocation failed. \n");
-                exit(1);
-            }
+}
+
+int countSpaces(const char* str) {
+    int count = 0;
+
+    while (*str != '\0') {
+        if (*str == ' ') {
+            count++;
         }
+        str++;
     }
 
-    word[index] = '\0';
-    return word;
-
+    return count;
 }
 
 Node* Node_alloc(char* word, Node* next){
@@ -83,6 +81,7 @@ size_t StrList_size(const StrList* StrList){
         return 0;
 }
 
+
 void StrList_insertLast(StrList* StrList, const char* data){
     Node* newNode = Node_alloc(strdup(data), NULL);
     if(newNode == NULL){
@@ -104,32 +103,34 @@ void StrList_insertLast(StrList* StrList, const char* data){
 
 }
 
-void StrList_insertAt(StrList* StrList, const char* data, int index){
+void StrList_insertAt(StrList* StrList, const char* data, int index) {
     Node* newNode = Node_alloc(strdup(data), NULL);
-    if(newNode == NULL){
+    if (newNode == NULL) {
         printf("Memory allocation failed.");
         exit(1);
     }
 
-    if(index >= 0 && index <= StrList->_size){
-        if(index == 0){
+    if (index >= 0 && index <= StrList->_size) {
+        if (index == 0) {
             newNode->_next = StrList->head;
             StrList->head = newNode;
+        } else {
+            int currentIndex = 1;
+            Node* current = StrList->head;
+            while (currentIndex < index) {
+                currentIndex++;
+                current = current->_next;
+            }
+            newNode->_next = current->_next;
+            current->_next = newNode;
         }
-        int currentIndex = 0;
-        Node* current = StrList->head;
-        while(currentIndex < index - 1){
-            currentIndex++;
-            current = current->_next;
-        }
-        newNode->_next = current->_next;
-        current->_next = newNode;
-        
+
+        ++(StrList->_size);
     } else {
         printf("Invalid index.");
     }
-
 }
+
 
 char* StrList_firstData(const StrList* StrList){
     return StrList->head->_data;
@@ -139,7 +140,7 @@ void StrList_print(const StrList* StrList){
     if(StrList != NULL){
         Node* current = StrList->head;
         while(current != NULL){
-            printf("%s", current->_data);
+            printf("%s ", current->_data);
             current = current->_next;
         }
     }
@@ -171,6 +172,7 @@ int StrList_printLen(const StrList* Strlist){
         Node* current = Strlist->head;
         while(current != NULL){
             sum = sum + (int) strlen(current->_data);
+            current = current->_next;
         }
         return sum;
     }

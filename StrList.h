@@ -114,12 +114,12 @@ void StrList_sort( StrList* StrList);
  */
 int StrList_isSorted(StrList* StrList);
 
-char* readWord();
+char* readWords();
 
 Node* mergeSort(Node* head);
 
 Node* merge(Node* left, Node* right);
 
-
+int countSpaces(const char* str);
 
 

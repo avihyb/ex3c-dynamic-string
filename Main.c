@@ -1,30 +1,47 @@
 #include "StrList.h"
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 int main() {
     int option;
     int words;
     int index;
-    char* currentWord;
+    char* currentWords;
     StrList* list = StrList_alloc();
+    
 
     while (true) {
         scanf("%d", &option);
 
         switch (option) {
         case 1:
-            scanf("%d", &words);
-            for (int i = 0; i < words; i++) {
-                currentWord = readWord();
-                StrList_insertLast(list, currentWord);
-            }
+                scanf("%d", &words);
+                getchar();
+                currentWords = readWords();
+                if(countSpaces(currentWords) == words - 1){
+                    char *word = strtok(currentWords, " ");
+                    while(word != NULL){
+                        StrList_insertLast(list, word);
+                        word = strtok(NULL, " ");
+                    }
+                } else {
+                    printf("Error: words amount not equal");
+                    break;
+                }
+               
+            
             break;
 
         case 2:
             scanf("%d", &index);
-            currentWord = readWord();
-            StrList_insertAt(list, currentWord, index);
+            getchar();
+            currentWords = readWords();
+             char *word = strtok(currentWords, " ");
+                    while(word != NULL){
+                        StrList_insertAt(list, currentWords, index);
+                        word = strtok(NULL, " ");
+                    }
             break;
 
         case 3:
@@ -47,15 +64,15 @@ int main() {
             break;
 
         case 7: {
-            currentWord = readWord();
-            int ans = StrList_count(list, currentWord);
+            currentWords = readWords();
+            int ans = StrList_count(list, currentWords);
             printf("%d", ans);
             break;
         }
 
         case 8:
-            currentWord = readWord();
-            StrList_remove(list, currentWord);
+            currentWords = readWords();
+            StrList_remove(list, currentWords);
             break;
 
         case 9:
