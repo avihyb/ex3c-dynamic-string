@@ -12,15 +12,18 @@ int main() {
     
 
     while (true) {
-        scanf("%d", &option);
+        scanf("%d", &option); // recieving the option from the user
 
         switch (option) {
         case 1:
                 scanf("%d", &words);
-                getchar();
+                getchar(); // avoiding the newline char
                 currentWords = readWords();
-                if(countSpaces(currentWords) == words - 1){
-                    char *word = strtok(currentWords, " ");
+                // user inputs the desired amount of words he would like to insert
+                if(countSpaces(currentWords) == words - 1){ 
+                    // using strtok(string, desired char to split by) to split the entered string into words,
+                    // in order to insert each word as a node to the list.
+                    char *word = strtok(currentWords, " "); 
                     while(word != NULL){
                         StrList_insertLast(list, word);
                         word = strtok(NULL, " ");
@@ -29,7 +32,7 @@ int main() {
                     printf("Error: words amount not equal");
                     break;
                 }
-               
+               free(currentWords);
             
             break;
 
@@ -42,6 +45,7 @@ int main() {
                         StrList_insertAt(list, currentWords, index);
                         word = strtok(NULL, " ");
                     }
+                    free(currentWords);
             break;
 
         case 3:
@@ -77,12 +81,14 @@ int main() {
             int ans = StrList_count(list, currentWords);
             printf("%d", ans);
             printf("\n");
+            free(currentWords);
             break;
         }
 
         case 8:
             currentWords = readWords();
             StrList_remove(list, currentWords);
+            free(currentWords);
             break;
 
         case 9:
@@ -109,6 +115,7 @@ int main() {
         }
 
         case 0:
+            free(list);
             return 0;
             break;
 

@@ -57,20 +57,23 @@ StrList* StrList_alloc(){
     return list;
 }
 
-void Node_free(Node* node){
-    free(node);
+void Node_free(Node* node) {
+    if (node != NULL) {
+        free(node->_data);  // Free the memory for the data
+        free(node);         // Free the memory for the Node
+    }
 }
 
 void StrList_free(StrList* StrList){
     if(StrList == NULL) return;
     Node* p1 = StrList->head;
     Node* p2;
-    while(p1){
+    while(p1 != NULL){
         p2=p1;
         p1=p1->_next;
         Node_free(p2);
     }
-
+    
     StrList->head = NULL;
     
 }
@@ -322,7 +325,7 @@ void StrList_reverse(StrList* StrList){
 
 void StrList_sort(StrList* StrList){
     Node* p = mergeSort(StrList->head);
-    StrList->head = p;
+    StrList->head = p; 
 }
 
 Node* mergeSort(Node* head){
