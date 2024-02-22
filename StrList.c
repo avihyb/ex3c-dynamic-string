@@ -70,7 +70,9 @@ void StrList_free(StrList* StrList){
         p1=p1->_next;
         Node_free(p2);
     }
-    free(StrList);
+
+    StrList->head = NULL;
+    
 }
 
 size_t StrList_size(const StrList* StrList){
@@ -137,12 +139,19 @@ char* StrList_firstData(const StrList* StrList){
 }
 
 void StrList_print(const StrList* StrList){
-    if(StrList != NULL){
+    if(StrList != NULL && StrList->head != NULL){
         Node* current = StrList->head;
         while(current != NULL){
-            printf("%s ", current->_data);
+            if(current->_next == NULL){
+                printf("%s", current->_data);
+            } else {
+                printf("%s ", current->_data);
+            }
+            
             current = current->_next;
         }
+    } else {
+        return;
     }
 
 }
@@ -188,6 +197,7 @@ int StrList_count(StrList* StrList, const char* data){
             if(strcmp(current->_data, data) == 0){
                 counter++;
             }
+            current = current->_next;
         }
         return counter;
     }

@@ -46,27 +46,37 @@ int main() {
 
         case 3:
             StrList_print(list);
+            printf("\n");
             break;
 
         case 4:
             int size = StrList_size(list);
             printf("%d", size);
+            printf("\n");
             break;
 
         case 5:
             scanf("%d", &index);
             StrList_printAt(list, index);
+            printf("\n");
             break;
 
         case 6:
             int ans = StrList_printLen(list);
             printf("%d", ans);
+            printf("\n");
             break;
 
         case 7: {
+            getchar();
             currentWords = readWords();
+            char *word = strtok(currentWords, " ");
+                    while(word != NULL){
+                        word = strtok(NULL, " ");
+                    }
             int ans = StrList_count(list, currentWords);
             printf("%d", ans);
+            printf("\n");
             break;
         }
 
@@ -94,7 +104,7 @@ int main() {
 
         case 13: {
             int sorted = StrList_isSorted(list);
-            printf("%s\n", sorted ? "Sorted" : "Not Sorted");
+            printf("%s\n", sorted ? "true" : "false");
             break;
         }
 
