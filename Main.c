@@ -5,7 +5,7 @@
 
 /**
  * StrList Program:
- * 
+ *  
  * Dynamically allocates a string list to manage individual words from user-provided text.
  * Offers a variety of actions for manipulating the list, including:
  *
