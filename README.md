@@ -27,6 +27,7 @@ This program dynamically allocates a string list to manage individual words from
 
 ```bash
 ./StrList
+```
 
 ## Remarks
  * Program has been thoroughly checked with Valgrind to guarantee memory leak prevention.
