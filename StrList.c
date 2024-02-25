@@ -4,16 +4,19 @@
 #include <string.h>
 #include <stdlib.h>
 
+// Node struct definition
 typedef struct _node{
     char* _data;
     struct _node * _next;
 }Node;
+
+// StrList struct definition
 struct _StrList
 {
     Node* head;
     size_t _size;
 };
-
+// Reads a line of input from the user and returns the allocated string
 char* readWords(){
     char* str = NULL;
     size_t size = 0;
@@ -27,7 +30,7 @@ char* readWords(){
     return str;
 
 }
-
+// Counts the number of spaces in a string
 int countSpaces(const char* str) {
     int count = 0;
 
@@ -40,7 +43,7 @@ int countSpaces(const char* str) {
 
     return count;
 }
-
+// Allocates a new Node with the given data and next pointer
 Node* Node_alloc(char* word, Node* next){
     Node* p = (Node*)malloc(sizeof(Node));
     p->_data=word;
@@ -48,7 +51,7 @@ Node* Node_alloc(char* word, Node* next){
 
     return p;
 }
-
+// Allocates a new empty StrList
 StrList* StrList_alloc(){
     StrList* list = (StrList*) malloc(sizeof(StrList));
     list->head=NULL;
@@ -56,14 +59,14 @@ StrList* StrList_alloc(){
 
     return list;
 }
-
+// Frees the memory of a given Node
 void Node_free(Node* node) {
     if (node != NULL) {
         free(node->_data);  // Free the memory for the data
         free(node);         // Free the memory for the Node
     }
 }
-
+// Frees the memory of all Nodes in a StrList
 void StrList_free(StrList* StrList){
     if(StrList == NULL) return;
     Node* p1 = StrList->head;
@@ -77,7 +80,7 @@ void StrList_free(StrList* StrList){
     StrList->head = NULL;
     
 }
-
+// Returns the size of a StrList (number of Nodes)
 size_t StrList_size(const StrList* StrList){
     if(StrList != NULL){
         return StrList->_size;
@@ -86,7 +89,7 @@ size_t StrList_size(const StrList* StrList){
         return 0;
 }
 
-
+// Inserts a new Node containing the given data at the end of the StrList
 void StrList_insertLast(StrList* StrList, const char* data){
     Node* newNode = Node_alloc(strdup(data), NULL);
     if(newNode == NULL){
@@ -108,6 +111,7 @@ void StrList_insertLast(StrList* StrList, const char* data){
 
 }
 
+// Inserts a new Node containing the given data at the specified index in the StrList
 void StrList_insertAt(StrList* StrList, const char* data, int index) {
     Node* newNode = Node_alloc(strdup(data), NULL);
     if (newNode == NULL) {
@@ -136,11 +140,12 @@ void StrList_insertAt(StrList* StrList, const char* data, int index) {
     }
 }
 
-
+// Returns the data of the first Node in the StrList
 char* StrList_firstData(const StrList* StrList){
     return StrList->head->_data;
 }
 
+// Prints the data of all Nodes in the StrList, separated by spaces
 void StrList_print(const StrList* StrList){
     if(StrList != NULL && StrList->head != NULL){
         Node* current = StrList->head;
@@ -159,6 +164,7 @@ void StrList_print(const StrList* StrList){
 
 }
 
+// Prints the data of the Node at the specified index in the StrList
 void StrList_printAt(const StrList* StrList, int index) {
     if (StrList != NULL) {
         if (index >= 0 && index < StrList->_size) {
@@ -177,7 +183,7 @@ void StrList_printAt(const StrList* StrList, int index) {
     }
 }
 
-
+// Returns the total length of all characters in the StrList
 int StrList_printLen(const StrList* Strlist){
     if(Strlist != NULL){
         int sum = 0;
@@ -191,7 +197,7 @@ int StrList_printLen(const StrList* Strlist){
     return 0;
 
 }
-
+// Counts the number of occurrences of the given data in the StrList
 int StrList_count(StrList* StrList, const char* data){
     if(StrList != NULL){
         int counter = 0;
@@ -208,6 +214,7 @@ int StrList_count(StrList* StrList, const char* data){
 
 }
 
+// Removes all Nodes containing the given data from the StrList
 void StrList_remove(StrList* StrList, const char* data) {
     if (StrList != NULL && StrList->head != NULL) {
         Node* current = StrList->head;
@@ -238,7 +245,7 @@ void StrList_remove(StrList* StrList, const char* data) {
 }
 
 
-
+// Removes the Node at the specified index from the StrList
 void StrList_removeAt(StrList* StrList, int index){
     if(StrList != NULL && index >= 0 && index < StrList->_size){
         int currentIndex = 0;
@@ -262,6 +269,7 @@ void StrList_removeAt(StrList* StrList, int index){
     }
 }
 
+// Compares two StrLists for equality (same data and order)
 int StrList_isEqual(const StrList* StrList1, const StrList* StrList2) {
     if (StrList1 != NULL && StrList2 != NULL) {
         if (StrList1->_size == StrList2->_size) {
@@ -284,7 +292,7 @@ int StrList_isEqual(const StrList* StrList1, const StrList* StrList2) {
     return 0;  // Lists are not equal
 }
 
-
+// Creates a deep copy of a StrList
 StrList* StrList_clone(const StrList* Strlist) {
     if (Strlist != NULL) {
         StrList* clonedList = StrList_alloc();
@@ -307,7 +315,7 @@ StrList* StrList_clone(const StrList* Strlist) {
 }
 
 
-
+// Reverses the order of Nodes in the StrList
 void StrList_reverse(StrList* StrList){
     Node* prev = NULL;
     Node* current = StrList->head;
@@ -323,11 +331,13 @@ void StrList_reverse(StrList* StrList){
     StrList->head = prev;
 }
 
+// Sorts the Nodes in the StrList lexicographically
 void StrList_sort(StrList* StrList){
     Node* p = mergeSort(StrList->head);
     StrList->head = p; 
 }
 
+// merge sort algorithm 
 Node* mergeSort(Node* head){
     if(head == NULL || head->_next == NULL){
         return head;
@@ -350,6 +360,7 @@ Node* mergeSort(Node* head){
     return merge(head, right);
 }
 
+// merge method to handle merge sort
 Node* merge(Node* left, Node* right){
     Node* result = NULL;
 
@@ -371,6 +382,7 @@ Node* merge(Node* left, Node* right){
     return result;
 }
 
+// Checks if the StrList is sorted in lexicographic order
 int StrList_isSorted(StrList* StrList){
    if (StrList == NULL || StrList->head == NULL) {
         return 1; // An empty list or a single-node list is considered sorted
