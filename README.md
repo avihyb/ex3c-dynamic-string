@@ -31,3 +31,5 @@ This program dynamically allocates a string list to manage individual words from
 
 ## Remarks
  * Program has been thoroughly checked with Valgrind to guarantee memory leak prevention.
+ * ![image](https://github.com/avihyb/ex3c-dynamic-string/assets/69721418/107a80b5-4d19-4768-b661-8444ea4fb1e0)
+
