@@ -28,6 +28,7 @@ char* readWords(){
     }
 
     return str;
+    
 
 }
 // Counts the number of spaces in a string
@@ -94,6 +95,7 @@ void StrList_insertLast(StrList* StrList, const char* data){
     Node* newNode = Node_alloc(strdup(data), NULL);
     if(newNode == NULL){
         printf("Memory allocation failed.");
+        Node_free(newNode);
         exit(1);
     }
     // if the linked list is empty, then the new node should be the head.
@@ -116,6 +118,7 @@ void StrList_insertAt(StrList* StrList, const char* data, int index) {
     Node* newNode = Node_alloc(strdup(data), NULL);
     if (newNode == NULL) {
         printf("Memory allocation failed.");
+        Node_free(newNode);
         exit(1);
     }
 
@@ -246,26 +249,26 @@ void StrList_remove(StrList* StrList, const char* data) {
 
 
 // Removes the Node at the specified index from the StrList
-void StrList_removeAt(StrList* StrList, int index){
-    if(StrList != NULL && index >= 0 && index < StrList->_size){
+void StrList_removeAt(StrList* StrList, int index) {
+    if (StrList != NULL && index >= 0 && index < StrList->_size) {
         int currentIndex = 0;
         Node* current = StrList->head;
         Node* prev = NULL;
-        if(index == 0){
-            StrList->head = current->_next;
-            Node_free(current);
-            current = StrList->head; 
-        } else {
 
-        while(currentIndex < index){
-            currentIndex++;
-            prev = current;
-            current = current->_next;
+        if (index == 0) {
+            StrList->head = current->_next;
+            Node_free(current);  
+        } else {
+            while (currentIndex < index) {
+                currentIndex++;
+                prev = current;
+                current = current->_next;
             }
             prev->_next = current->_next;
-            Node_free(current);
+            Node_free(current);  
         }
 
+        StrList->_size--;  
     }
 }
 

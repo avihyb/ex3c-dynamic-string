@@ -80,33 +80,50 @@ int main() {
                         StrList_insertAt(list, currentWords, index);
                         word = strtok(NULL, " ");
                     }
-                    free(currentWords);
+            free(currentWords);
             break;
 
         case 3:
+            if(list != NULL){
             StrList_print(list);
             printf("\n");
+            } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 4:
+            if(list != NULL){
             int size = StrList_size(list);
             printf("%d", size);
             printf("\n");
+            } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 5:
+            if(list != NULL){
             scanf("%d", &index);
             StrList_printAt(list, index);
             printf("\n");
+            } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 6:
+            if(list != NULL){
             int ans = StrList_printLen(list);
             printf("%d", ans);
             printf("\n");
+            } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 7: {
+            if(list != NULL){
             getchar();
             currentWords = readWords();
             char *word = strtok(currentWords, " ");
@@ -117,44 +134,74 @@ int main() {
             printf("%d", ans);
             printf("\n");
             free(currentWords);
+            } else {
+                printf("List is NULL.");
+            }
             break;
         }
 
         case 8:
+            if(list != NULL){
             currentWords = readWords();
             StrList_remove(list, currentWords);
             free(currentWords);
+            } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 9:
+            if(list != NULL){
             scanf("%d", &index);
-            StrList_removeAt(list, index);
+            StrList_removeAt(list, index);}
+            else {
+                printf("List is NULL.");
+            }
             break;
 
         case 10:
-            StrList_reverse(list);
+            if(list != NULL){
+            StrList_reverse(list); } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 11:
+            if(list != NULL){
             StrList_free(list);
+            } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 12:
-            StrList_sort(list);
+            if(list != NULL){
+            StrList_sort(list); } else {
+                printf("List is NULL.");
+            }
             break;
 
         case 13: {
+            if(list != NULL){
             int sorted = StrList_isSorted(list);
             printf("%s\n", sorted ? "true" : "false");
+            } else {
+                printf("List is NULL.");
+            }
             break;
         }
 
         case 0:
+            
+            StrList_free(list);
             free(list);
+            
+            
             return 0;
             break;
 
         default:
+            printf("Invalid choice.\n");
             break;
         }
     }
