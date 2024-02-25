@@ -3,6 +3,41 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * StrList Program:
+ * 
+ * Dynamically allocates a string list to manage individual words from user-provided text.
+ * Offers a variety of actions for manipulating the list, including:
+ *
+ * - Creating a new list from a string
+ * - Adding, removing, and printing strings
+ * - Counting characters and occurrences
+ * - Reversing and sorting the list
+ *
+ * Program has been thoroughly checked with Valgrind to guarantee memory leak prevention.
+ */
+
+/**
+ * PROGRAMS MENU:
+
+ * (Upon entering the following number:)
+ * 1. Creates a new StringList, user enters the desired number of words they want to add, and then the string.
+ * 2. Add a string in a specific index. (Enter index then string)
+ * 3. Print the StringList.
+ * 4. Print the StringList length. (amount of nodes)
+ * 5. Print string in a specific index.
+ * 6. Print the number of characters in the list.
+ * 7. Enter a string and returns the number of times it's in the list.
+ * 8. Enter a string to delete it from the list (deletes all the nodes with that string).
+ * 9. Enter an index and deletes the node in that index.
+ * 10. Reverse the list. (Nodes reverse, not chars).
+ * 11. Deletes the list.
+ * 12. Checks if the list is lexicographically sorted.
+ * 13. Sorts the list lexicographically.
+ * 0. Exit.
+ *
+ */
+
 int main() {
     int option;
     int words;
